@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Moray-Cook</title>
+    <meta name="theme-color" content="#0D0D0D" />
+    <meta name="description" content="Moray-Cook." />
+
+    <!-- Nice variable serif fallback -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./styles.css" />
+
+    <script>
+      console.log("Moray-Cook");
+    </script>
+  </head>
+
+  <body>
+    <main id="app">
+      <div
+        id="wordmark-animation"
+        role="img"
+        aria-label="The word Moray-Cook centered on the screen."
+      >
+        <span class="wordmark" id="wordmark" aria-hidden="true">
+          <span class="part" id="left"></span>
+          <span class="hyphen" id="hyphen">-</span>
+          <span class="part" id="right"></span>
+          <span class="caret" id="caret" aria-hidden="true"></span>
+        </span>
+      </div>
+
+      <a
+        class="mail-fab"
+        href="mailto:jason@moraycook.com"
+        aria-label="Email Jason at jason@moraycook.com"
+        title="Email jason@moraycook.com"
+      >
+        <svg
+          class="mail-icon"
+          viewBox="0 0 24 24"
+          width="20"
+          height="20"
+          aria-hidden="true"
+        >
+          <path
+            d="M4.5 7.25A2.75 2.75 0 0 1 7.25 4.5h9.5A2.75 2.75 0 0 1 19.5 7.25v9.5A2.75 2.75 0 0 1 16.75 19.5h-9.5A2.75 2.75 0 0 1 4.5 16.75v-9.5Z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M6.5 7.75 12 12l5.5-4.25"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </a>
+
+      <noscript>
+        <style>
+          #wordmark { opacity: 1 !important; transform: none !important; }
+          #left::before { content: "Moray"; }
+          #hyphen { color: #fafafa !important; }
+          #right::before { content: "Cook"; }
+          #caret { display: none !important; }
+        </style>
+      </noscript>
+    </main>
+
+    <script src="./main.js" defer></script>
+  </body>
+</html>
