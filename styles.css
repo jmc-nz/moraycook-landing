@@ -1,0 +1,146 @@
+:root {
+  --bg: #0d0d0d;
+  --fg: #fafafa;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+#app {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 5vh 6vw;
+}
+
+#wordmark-animation {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  user-select: none;
+}
+
+.wordmark {
+  font-family: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+
+  font-size: clamp(56px, 10vw, 120px);
+  font-weight: 420;
+  font-variation-settings: "opsz" 72, "wght" 420;
+
+  white-space: nowrap;
+
+  opacity: 0;
+  transform: translateY(2px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.wordmark.is-live {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.part {
+  display: inline;
+}
+
+.hyphen {
+  display: inline;
+  color: var(--bg);
+  transition: color 900ms ease;
+}
+
+.hyphen.is-visible {
+  color: var(--fg);
+}
+
+.caret {
+  display: inline-block;
+  width: 0.035em;   /* thin caret */
+  height: 1.02em;
+
+  margin-left: 0.06em;
+  vertical-align: -0.10em;
+
+  background: var(--fg);
+  opacity: 0;
+  border-radius: 2px;
+}
+
+.caret.is-active {
+  opacity: 1;
+  animation: blink 1s steps(1, end) infinite;
+}
+
+@keyframes blink {
+  0%, 45% { opacity: 1; }
+  46%, 100% { opacity: 0; }
+}
+
+.mail-fab {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 20;
+
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+
+  display: grid;
+  place-items: center;
+
+  color: var(--fg);
+  text-decoration: none;
+
+  background: rgba(250, 250, 250, 0.06);
+  border: 1px solid rgba(250, 250, 250, 0.18);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.mail-fab:hover {
+  transform: translateY(-1px);
+  background: rgba(250, 250, 250, 0.09);
+  border-color: rgba(250, 250, 250, 0.28);
+}
+
+.mail-fab:active {
+  transform: translateY(0px);
+}
+
+.mail-fab:focus-visible {
+  outline: 2px solid rgba(250, 250, 250, 0.55);
+  outline-offset: 3px;
+}
+
+.mail-icon {
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret { display: none !important; }
+  .wordmark {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+  .hyphen { color: var(--fg); transition: none; }
+  .mail-fab { transition: none; }
+}
