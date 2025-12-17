@@ -8,27 +8,16 @@
   const hyphen = document.getElementById("hyphen");
   const caret = document.getElementById("caret");
 
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reduceMotion) {
-    left.textContent = leftText;
-    right.textContent = rightText;
-    hyphen.classList.add("is-visible");
-    wordmark.classList.add("is-live");
-    return;
-  }
+  if (!wordmark || !left || !right || !hyphen || !caret) return;
 
-  // Bring the wordmark into view
   requestAnimationFrame(() => wordmark.classList.add("is-live"));
 
-  // 3 seconds of blinking caret before typing begins
   const preTypeBlinkMs = 3000;
 
-  // After finishing, wait 2s then fade in the hyphen
   const hyphenRevealDelayMs = 2000;
 
-  // Slower, calmer cadence
-  const baseDelay = 135;  // average ms per character
-  const variance = 70;    // jitter
+  const baseDelay = 135;
+  const variance = 70;
 
   const delayFor = () => baseDelay + Math.random() * variance;
 
@@ -40,7 +29,6 @@
       el.textContent += text[i];
       i += 1;
 
-      // keep caret at the end of the currently-typed span
       el.appendChild(caret);
 
       setTimeout(step, delayFor());
@@ -48,25 +36,19 @@
     step();
   };
 
-  // Start: caret visible + blinking, sitting at the start of the left part
   caret.classList.add("is-active");
   left.appendChild(caret);
 
   setTimeout(() => {
-    // Type "Moray"
     typeInto(left, leftText, () => {
-      // Move caret to the right span (hyphen space is already reserved)
       right.appendChild(caret);
 
-      // Type "Cook"
       typeInto(right, rightText, () => {
-        // Done typing — keep caret for a moment then hide
         setTimeout(() => {
           caret.classList.remove("is-active");
           caret.style.opacity = "0";
         }, 700);
 
-        // Reveal hyphen after 2 seconds (fade from bg -> fg)
         setTimeout(() => {
           hyphen.classList.add("is-visible");
         }, hyphenRevealDelayMs);
