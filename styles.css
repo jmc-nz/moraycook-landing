@@ -36,7 +36,6 @@ body {
 
 .wordmark {
   font-family: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
-
   font-size: clamp(56px, 10vw, 120px);
   font-weight: 420;
   font-variation-settings: "opsz" 72, "wght" 420;
@@ -69,7 +68,7 @@ body {
 
 .caret {
   display: inline-block;
-  width: 0.035em;   /* thin caret */
+  width: 0.035em;
   height: 1.02em;
 
   margin-left: 0.06em;
@@ -121,9 +120,7 @@ body {
   border-color: rgba(250, 250, 250, 0.28);
 }
 
-.mail-fab:active {
-  transform: translateY(0px);
-}
+.mail-fab:active { transform: translateY(0px); }
 
 .mail-fab:focus-visible {
   outline: 2px solid rgba(250, 250, 250, 0.55);
@@ -132,15 +129,4 @@ body {
 
 .mail-icon {
   display: block;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .caret { display: none !important; }
-  .wordmark {
-    transition: none;
-    opacity: 1;
-    transform: none;
-  }
-  .hyphen { color: var(--fg); transition: none; }
-  .mail-fab { transition: none; }
 }
