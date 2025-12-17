@@ -1,6 +1,9 @@
 :root {
   --bg: #0d0d0d;
   --fg: #fafafa;
+
+  --hyphen-slot: 0.30em;
+  --hyphen-margin: 0em;
 }
 
 * { box-sizing: border-box; }
@@ -20,6 +23,7 @@ body {
 
 #app {
   min-height: 100vh;
+  min-height: 100svh;
   display: grid;
   place-items: center;
   padding: 5vh 6vw;
@@ -32,6 +36,9 @@ body {
   line-height: 1;
   letter-spacing: -0.02em;
   user-select: none;
+
+  --left-shift: 0em;
+  --right-shift: 0em;
 }
 
 .wordmark {
@@ -39,7 +46,6 @@ body {
   font-size: clamp(56px, 10vw, 120px);
   font-weight: 420;
   font-variation-settings: "opsz" 72, "wght" 420;
-
   white-space: nowrap;
 
   opacity: 0;
@@ -52,18 +58,87 @@ body {
   transform: translateY(0);
 }
 
-.part {
-  display: inline;
+.wordmark.is-fading {
+  opacity: 0;
+  transform: translateY(2px);
 }
 
+.wordmark-button {
+  cursor: pointer;
+  outline: none;
+}
+
+.wordmark-button:focus-visible {
+  outline: 2px solid rgba(250, 250, 250, 0.35);
+  outline-offset: 10px;
+  border-radius: 12px;
+}
+
+.part { display: inline; }
+
+#left, #right {
+  display: inline-block;
+  will-change: transform;
+  transition: transform 720ms cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+
+#left { transform: translateX(var(--left-shift)); }
+#right { transform: translateX(var(--right-shift)); }
+
 .hyphen {
-  display: inline;
+  display: inline-grid;
+  place-items: center;
+
+  width: var(--hyphen-slot);
+  height: 1em;
+  margin: 0 var(--hyphen-margin);
+  overflow: visible;
+
+  --hyphen-scale: 0;       /* reveal */
+  --hyphen-stretch: 1;     /* final “extend” */
+  --hyphen-rot: 0deg;
+  --hyphen-y: 0em;
+
+  transform-origin: 50% 50%;
+  transform:
+    translateY(var(--hyphen-y))
+    scaleX(var(--hyphen-scale))
+    scaleX(var(--hyphen-stretch))
+    rotate(var(--hyphen-rot));
+
+  opacity: 0;
   color: var(--bg);
-  transition: color 900ms ease;
+
+  will-change: transform, opacity, color;
+  transition:
+    transform 720ms cubic-bezier(0.2, 0.9, 0.2, 1),
+    opacity 520ms ease,
+    color 700ms ease;
 }
 
 .hyphen.is-visible {
+  --hyphen-scale: 1;
+  opacity: 1;
   color: var(--fg);
+}
+
+.hyphen.is-spinning {
+  transition:
+    transform 650ms cubic-bezier(0.2, 0.9, 0.2, 1),
+    opacity 520ms ease,
+    color 700ms ease;
+}
+
+.period {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.05em);
+  transition: opacity 520ms ease, transform 520ms ease;
+}
+
+.period.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .caret {
@@ -91,8 +166,8 @@ body {
 
 .mail-fab {
   position: fixed;
-  right: 22px;
-  bottom: 22px;
+  right: calc(22px + env(safe-area-inset-right));
+  bottom: calc(22px + env(safe-area-inset-bottom));
   z-index: 20;
 
   width: 46px;
@@ -111,7 +186,21 @@ body {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 
-  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+
+  transition:
+    opacity 380ms ease,
+    transform 380ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.mail-fab.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 .mail-fab:hover {
@@ -127,6 +216,4 @@ body {
   outline-offset: 3px;
 }
 
-.mail-icon {
-  display: block;
-}
+.mail-icon { display: block; }
