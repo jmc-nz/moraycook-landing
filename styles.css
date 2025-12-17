@@ -22,7 +22,7 @@ body {
 }
 
 #app {
-  min-height: 100dvh;
+  min-height: 100vh;
   min-height: 100svh;
   display: grid;
   place-items: center;
@@ -217,9 +217,3 @@ body {
 }
 
 .mail-icon { display: block; }
-
-@media (max-width: 520px) {
-  #wordmark-wrapper {
-    transform: translateY(-2vh);
-  }
-}
