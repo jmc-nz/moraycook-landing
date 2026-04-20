@@ -14,9 +14,23 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,200..700&display=swap"
       rel="stylesheet"
     />
+    
+    <style>
+      /* WebGL Smoke Background */
+      #smoke-canvas {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        pointer-events: none; /* Ensures the wordmark remains clickable */
+      }
+    </style>
   </head>
 
   <body>
+    <canvas id="smoke-canvas"></canvas>
+
     <main id="app">
       <div id="wordmark-wrapper">
         <div id="wordmark-animation" aria-label="Moray Cook wordmark">
